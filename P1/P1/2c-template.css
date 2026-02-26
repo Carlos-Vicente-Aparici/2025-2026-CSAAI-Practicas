@@ -2,84 +2,6 @@
 /* 1. Importas las fuentes nuevas */
 @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Ubuntu:wght@400;700&display=swap');
 
-/* RESPONSIVE PARA PROYECTOS */
-@media screen and (max-width: 768px) {
-    .contenedor-proyectos {
-        grid-template-columns: 1fr; /* Una sola columna en móvil */
-        padding: 10px;
-    }
-    /* 1. Apilamos las columnas del index (Primero c1 y luego c2) */
-    .fila {
-        display: flex;
-        flex-direction: column; /* Esto pone c1 arriba y c2 abajo */
-        align-items: center;    /* Centra los bloques */ 
-        gap: 20px;
-        padding: 10px;
-    }
-
-    #c1, #c2 {
-        width: 100% !important; 
-        max-width: 100% !important;
-        margin: 0 auto;
-    }
-
-    /* 2. ARREGLO PARA PROYECTOS: Forzamos el fondo y el borde */
-    .contenedor-proyectos {
-        display: flex;
-        flex-direction: column;
-        padding: 15px;
-        gap: 25px;
-    }
-
-    .proyecto-card {
-        background-color: rgba(245, 235, 147, 0.95) !important; /* Fondo amarillo Johnny */
-        border: 2px solid #f7b425 !important;
-        display: block !important; /* Asegura que se vea como bloque */
-        width: 100%;
-        color: #333; /* Texto oscuro para que se lea bien */
-    }
-
-    .contenido-card {
-        padding: 15px;
-    }
-
-    /* 3. Estilo de los botones en móvil */
-    .boton-proyecto {
-        display: block;
-        width: fit-content;
-        margin: 10px auto;
-        background-color: #333;
-        color: white !important;
-        padding: 12px 20px;
-    }
-
-    /* 4. Ajustes de texto para que no se corten */
-    .titulo-principal {
-        font-size: 1.3rem;
-        padding: 20px 10px;
-    }
-
-    .video-responsive {
-        width: 100% !important;
-        max-width: 100% !important;
-        max-height: none !important;
-        margin: 10px 0;
-    }
-
-    /* Ajuste de la tabla de experimentos */
-    .tabla-referencias {
-        display: block;
-        width: 100%;
-        overflow-x: auto; /* Permite deslizar la tabla si no cabe */
-        white-space: nowrap; /* Evita que el texto de las celdas se amontone */
-    }
-
-    /* Imágenes de la tabla un poco más pequeñas en móvil */
-    .img-tabla {
-        width: 60px;
-        height: 60px;
-    }
-}
 
 
 /* 3. Se la pones solo a los títulos para que resalten */
@@ -352,3 +274,80 @@ li {
     color: #333;
 }
 
+@media screen and (max-width: 768px) {
+    .contenedor-proyectos {
+        grid-template-columns: 1fr; /* Una sola columna en móvil */
+        padding: 10px;
+    }
+    /* 1. Apilamos las columnas del index (Primero c1 y luego c2) */
+    .fila {
+        display: flex;
+        flex-direction: column; /* Esto pone c1 arriba y c2 abajo */
+        align-items: center;    /* Centra los bloques */ 
+        gap: 20px;
+        padding: 10px;
+    }
+
+    #c1, #c2 {
+        width: 100% !important; 
+        max-width: 100% !important;
+        margin: 0 auto;
+    }
+
+    /* 2. ARREGLO PARA PROYECTOS: Forzamos el fondo y el borde */
+    .contenedor-proyectos {
+        display: flex;
+        flex-direction: column;
+        padding: 15px;
+        gap: 25px;
+    }
+
+    .proyecto-card {
+        background-color: rgba(245, 235, 147, 0.95) !important; /* Fondo amarillo Johnny */
+        border: 2px solid #f7b425 !important;
+        display: block !important; /* Asegura que se vea como bloque */
+        width: 100%;
+        color: #333; /* Texto oscuro para que se lea bien */
+    }
+
+    .contenido-card {
+        padding: 15px;
+    }
+
+    /* 3. Estilo de los botones en móvil */
+    .boton-proyecto {
+        display: block;
+        width: fit-content;
+        margin: 10px auto;
+        background-color: #333;
+        color: white !important;
+        padding: 12px 20px;
+    }
+
+    /* 4. Ajustes de texto para que no se corten */
+    .titulo-principal {
+        font-size: 1.3rem;
+        padding: 20px 10px;
+    }
+
+    .video-responsive {
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: none !important;
+        margin: 10px 0;
+    }
+
+    /* Ajuste de la tabla de experimentos */
+    .tabla-referencias {
+        display: block;
+        width: 100%;
+        overflow-x: auto; /* Permite deslizar la tabla si no cabe */
+        white-space: nowrap; /* Evita que el texto de las celdas se amontone */
+    }
+
+    /* Imágenes de la tabla un poco más pequeñas en móvil */
+    .img-tabla {
+        width: 60px;
+        height: 60px;
+    }
+}
