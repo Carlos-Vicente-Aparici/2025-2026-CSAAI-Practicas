@@ -8,7 +8,61 @@
         grid-template-columns: 1fr; /* Una sola columna en móvil */
         padding: 10px;
     }
+    /* 1. Apilamos las columnas del index (Primero c1 y luego c2) */
+    .fila {
+        display: flex;
+        flex-direction: column; 
+        gap: 20px;
+        padding: 10px;
+    }
+
+    #c1, #c2 {
+        width: 100% !important;
+        margin: 0;
+    }
+
+    /* 2. ARREGLO PARA PROYECTOS: Forzamos el fondo y el borde */
+    .contenedor-proyectos {
+        display: flex;
+        flex-direction: column;
+        padding: 15px;
+        gap: 25px;
+    }
+
+    .proyecto-card {
+        background-color: rgba(245, 235, 147, 0.95) !important; /* Fondo amarillo Johnny */
+        border: 2px solid #f7b425 !important;
+        display: block !important; /* Asegura que se vea como bloque */
+        width: 100%;
+        color: #333; /* Texto oscuro para que se lea bien */
+    }
+
+    .contenido-card {
+        padding: 15px;
+    }
+
+    /* 3. Estilo de los botones en móvil */
+    .boton-proyecto {
+        display: block;
+        width: fit-content;
+        margin: 10px auto;
+        background-color: #333;
+        color: white !important;
+        padding: 12px 20px;
+    }
+
+    /* 4. Ajustes de texto para que no se corten */
+    .titulo-principal {
+        font-size: 1.3rem;
+        padding: 20px 10px;
+    }
+
+    .video-responsive {
+        width: 100%;
+        margin: 10px 0;
+    }
 }
+
 
 /* 3. Se la pones solo a los títulos para que resalten */
 h1, h2 {
