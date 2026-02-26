@@ -226,3 +226,56 @@ li {
     width: 100%;
     height: 100%; 
 }
+
+/* Contenedor de Proyectos */
+.contenedor-proyectos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Esto crea las columnas automáticas */
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Estilo de la Tarjeta (Card) */
+.proyecto-card {
+    background-color: rgba(245, 235, 147, 0.9);
+    border: 2px solid #f7b425;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+.contenido-card {
+    padding: 20px;
+    flex-grow: 1; /* Hace que todas las tarjetas midan lo mismo */
+}
+
+/* Botón del Proyecto */
+.boton-proyecto {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Bangers', cursive;
+    border-radius: 4px;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.boton-proyecto:hover {
+    background-color: #f7b425;
+    color: #333;
+}
+
+/* RESPONSIVE PARA PROYECTOS */
+@media screen and (max-width: 768px) {
+    .contenedor-proyectos {
+        grid-template-columns: 1fr; /* Una sola columna en móvil */
+        padding: 10px;
+    }
+}
