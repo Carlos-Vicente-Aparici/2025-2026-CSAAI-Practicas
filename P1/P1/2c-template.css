@@ -337,23 +337,24 @@ li {
         margin: 10px 0;
     }
 
-    /* Ajuste de la tabla de experimentos */
+    /* ESTO ARREGLA LA TABLA AMONTONADA */
     .tabla-referencias {
-        display: block;
-        width: 100%;
-        overflow-x: auto; /* Permite deslizar la tabla si no cabe */
-        white-space: nowrap; /* Evita que el texto de las celdas se amontone */
-    }
-
-    /* Imágenes de la tabla un poco más pequeñas en móvil */
-    .img-tabla {
-        width: 60px;
-        height: 60px;
+        display: block;      /* Convierte la tabla en un bloque */
+        width: 100%;         /* Que ocupe todo el ancho disponible */
+        overflow-x: auto;    /* ACTIVA EL DESLIZAMIENTO LATERAL */
+        white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+        margin-top: 20px;
+        border: 1px solid #ccc;
     }
 
     .tabla-referencias td, .tabla-referencias th {
         min-width: 120px;    /* Le da un ancho mínimo a cada columna para que no se aplasten */
         padding: 10px;
         white-space: normal; /* Permite que el texto dentro de las celdas sí baje de línea si es largo */
+    }
+
+    .img-tabla {
+        width: 60px;         /* Hacemos las fotos un pelín más pequeñas en móvil */
+        height: 60px;
     }
 }
