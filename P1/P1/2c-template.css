@@ -1,0 +1,224 @@
+/* CONFIGURACIÓN GENERAL */
+/* 1. Importas las fuentes nuevas */
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Ubuntu:wght@400;700&display=swap');
+
+/* 3. Se la pones solo a los títulos para que resalten */
+h1, h2 {
+    font-family: 'Bangers', cursive;
+    letter-spacing: 2px; /* Un poco de separación queda genial en esta fuente */
+}
+
+body {
+    /* imagen de fondo */
+    background-image: url('JhonnyTestFondo.jpg'); 
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.titulo-principal {
+    text-align: center;
+    color: #333;
+    background-color: rgba(250, 189, 109, 0.7);
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+/* EL TRUCO PARA LAS COLUMNAS*/
+.fila {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; 
+    gap: 25px;               
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ESTILO DE LOS CUADRADOS */
+.columna {
+    background-color: rgba(245, 235, 147, 0.9); 
+    border: 2px solid #f7b425;                 /* Borde*/
+    border-radius: 8px;
+    overflow: hidden;                          /* Para que el color principal no se salga de las esquinas */
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+}
+
+#c1 { width: 30%; } /* Ancho columna izquierda */
+#c2 { width: 60%; } /* Ancho columna derecha */
+#c3 {width: 100%; }
+
+/* CABECERAS*/
+.cabecera-verde {
+    background-color: #c2fcab; 
+    margin: 0;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.1rem;
+    border-bottom: 2px solid #a9eb8f;
+    color: #222;
+}
+
+.cabecera-titulo {
+    background-color: #c2fcab; 
+    margin: 0;
+    padding: 15px;
+    text-align: left;
+    font-size: 1.1rem;
+    border: 2px solid #a9eb8f;
+    border-color: #f7b425;
+    color: #222;
+}
+
+/* ESPACIADO DEL TEXTO INTERIOR */
+.contenido {
+    padding: 20px;
+    line-height: 1.6;
+}
+
+/* AJUSTE DE IMÁGENES */
+.iresponsive img, .centrar-imagen img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.centrar-imagen {
+    text-align: center;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 8px;
+}
+
+.lista-custom {
+    list-style-type: none; /* ESTO QUITA EL PUNTO NEGRO */
+    padding-left: 10px;    /* Ajusta el margen izquierdo a mi gusto */
+    margin-top: 15px;
+}
+
+.lista-custom li {
+    margin-bottom: 10px;   /* Separa un poco los elementos hacia abajo */
+    font-family: 'Montserrat', sans-serif; 
+    display: flex;         /* Alinea el emoji y el texto */
+    align-items: center;   
+}
+
+.tabla-referencias {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+/* Estilo de los encabezados con la línea debajo */
+.tabla-referencias th {
+    padding: 10px 5px;
+    border-bottom: 1px solid #000;
+    text-align: center;
+}
+
+/* Espaciado de las celdas */
+.tabla-referencias td {
+    padding: 15px 5px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+.img-tabla {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 1px solid #000;
+    display: block;
+    margin: 0 auto;
+}
+
+.info-celda {
+    text-align: left;
+    max-width: 150px;
+    line-height: 1.4;
+}
+
+.info-celda u {
+    color: rgb(255, 17, 0); /**/
+}
+
+/* Contenedor del menú */
+.menu-inferior {
+    display: flex;
+    justify-content: center; /* Centra los botones */
+    gap: 20px;               /* Espacio entre botones */
+    padding: 20px;
+    background-color: rgba(253, 241, 127, 0.7); 
+    border-top: 2px solid #F1D56E;             /* Borde amarillo arriba */
+    margin-top: 40px;        /* Empuja el menú hacia abajo del contenido */
+}
+
+/* Estilo de los enlaces */
+.menu-inferior a {
+    text-decoration: none;   /* Quita el subrayado normal */
+    color: #333;
+    font-weight: bold;
+    font-family: 'Bangers', cursive; /* O la fuente que elijas */
+    padding: 5px 10px;
+    transition: 0.3s;
+}
+
+
+/* Efecto al pasar el ratón */
+.menu-inferior a:hover {
+    color: #f1f1f1;
+    background-color: #333;
+    border-radius: 4px;
+}
+
+.texto-extendido {
+    flex: 2;                
+    text-align: center;     
+}
+
+.img-acerca {
+    width: 100%;            
+    max-width: 400px;       
+    border: 3px solid #F1D56E;
+    border-radius: 10px;
+}
+
+.lista-2 {
+    margin-bottom: 10px;   /* Separa un poco los elementos hacia abajo */
+    font-family: 'Montserrat', sans-serif; 
+    align-items: center;
+    list-style-type: none; /* ESTO QUITA EL PUNTO NEGRO */
+}
+
+
+
+/* Eliminamos el max-width del 20% que lo enviaba a la izquierda */
+.video-responsive {
+    position: relative;
+    padding-bottom: 56.25%; /* Relación 16:9 */
+    height: 0;
+    overflow: hidden;
+    
+    /* ESTO ES LO QUE LO CENTRA Y LE DA TAMAÑO */
+    width: 80%;           /* Ocupará el 80% de la columna */
+    margin: 20px auto;    /* El 'auto' en los lados lo centra mágicamente */
+    
+    border: 2px solid #F1D56E;
+    border-radius: 4px;
+}
+
+.video-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+}
