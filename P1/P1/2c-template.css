@@ -61,6 +61,20 @@
         width: 100%;
         margin: 10px 0;
     }
+
+    /* Ajuste de la tabla de experimentos */
+    .tabla-referencias {
+        display: block;
+        width: 100%;
+        overflow-x: auto; /* Permite deslizar la tabla si no cabe */
+        white-space: nowrap; /* Evita que el texto de las celdas se amontone */
+    }
+
+    /* Imágenes de la tabla un poco más pequeñas en móvil */
+    .img-tabla {
+        width: 60px;
+        height: 60px;
+    }
 }
 
 
