@@ -350,4 +350,10 @@ li {
         width: 60px;
         height: 60px;
     }
+
+    .tabla-referencias td, .tabla-referencias th {
+        min-width: 120px;    /* Le da un ancho mínimo a cada columna para que no se aplasten */
+        padding: 10px;
+        white-space: normal; /* Permite que el texto dentro de las celdas sí baje de línea si es largo */
+    }
 }
