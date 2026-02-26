@@ -2,6 +2,14 @@
 /* 1. Importas las fuentes nuevas */
 @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Ubuntu:wght@400;700&display=swap');
 
+/* RESPONSIVE PARA PROYECTOS */
+@media screen and (max-width: 768px) {
+    .contenedor-proyectos {
+        grid-template-columns: 1fr; /* Una sola columna en móvil */
+        padding: 10px;
+    }
+}
+
 /* 3. Se la pones solo a los títulos para que resalten */
 h1, h2 {
     font-family: 'Bangers', cursive;
@@ -272,10 +280,3 @@ li {
     color: #333;
 }
 
-/* RESPONSIVE PARA PROYECTOS */
-@media screen and (max-width: 768px) {
-    .contenedor-proyectos {
-        grid-template-columns: 1fr; /* Una sola columna en móvil */
-        padding: 10px;
-    }
-}
