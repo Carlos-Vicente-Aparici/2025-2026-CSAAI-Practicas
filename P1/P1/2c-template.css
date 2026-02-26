@@ -34,6 +34,7 @@ body {
     gap: 25px;               
     max-width: 1200px;
     margin: 0 auto;
+    
 }
 
 /* ESTILO DE LOS CUADRADOS */
@@ -77,6 +78,11 @@ body {
     line-height: 1.6;
 }
 
+.contenido-2 {
+    padding: 20px;
+    line-height: 1.6;
+    text-align: center;
+}
 /* AJUSTE DE IMÁGENES */
 .iresponsive img, .centrar-imagen img {
     width: 100%;
@@ -114,6 +120,7 @@ li {
     width: 100%;
     border-collapse: collapse;
     font-size: 0.85rem;
+    
 }
 
 /* Estilo de los encabezados con la línea debajo */
@@ -198,9 +205,6 @@ li {
     list-style-type: none; /* ESTO QUITA EL PUNTO NEGRO */
 }
 
-
-
-/* Eliminamos el max-width del 20% que lo enviaba a la izquierda */
 .video-responsive {
     position: relative;
     padding-bottom: 56.25%; /* Relación 16:9 */
