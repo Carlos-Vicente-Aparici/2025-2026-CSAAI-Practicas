@@ -11,7 +11,8 @@
     /* 1. Apilamos las columnas del index (Primero c1 y luego c2) */
     .fila {
         display: flex;
-        flex-direction: column; 
+        flex-direction: column; /* Esto pone c1 arriba y c2 abajo */
+        align-items: center;    /* Centra los bloques */ 
         gap: 20px;
         padding: 10px;
     }
