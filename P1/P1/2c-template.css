@@ -18,8 +18,9 @@
     }
 
     #c1, #c2 {
-        width: 100% !important;
-        margin: 0;
+        width: 100% !important; 
+        max-width: 100% !important;
+        margin: 0 auto;
     }
 
     /* 2. ARREGLO PARA PROYECTOS: Forzamos el fondo y el borde */
@@ -59,7 +60,9 @@
     }
 
     .video-responsive {
-        width: 100%;
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: none !important;
         margin: 10px 0;
     }
 
