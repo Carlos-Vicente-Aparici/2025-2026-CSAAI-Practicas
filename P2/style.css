@@ -1,13 +1,13 @@
 body {
     background-color: #111;
-    color: #0f0;
+    color: rgb(255, 174, 0);
     font-family: monospace;
     display: flex;
     justify-content: center;
     padding-top: 30px;
 }
 .marco-principal {
-    border: 2px solid #0f0;
+    border: 2px solid rgb(255, 230, 0);
     padding: 10px; 
     width: 95%;    
     max-width: 380px; 
@@ -22,11 +22,11 @@ body {
 }
 h1 {
     letter-spacing: 8px;
-    border-bottom: 2px solid #0f0;
+    border-bottom: 2px solid rgb(238, 255, 0);
     padding-bottom: 10px;
 }
 .pantalla-info {
-    border: 2px double #0f0;
+    border: 2px double rgb(255, 251, 0);
     margin: 15px 0;
     padding: 15px;
 }
@@ -37,7 +37,7 @@ h1 {
     margin-bottom: 10px;
 }
 .slots-clave div {
-    border: 1px solid #0f0;
+    border: 1px solid rgb(255, 251, 0);
     width: 50px;
     height: 45px;
     line-height: 45px;
@@ -49,8 +49,8 @@ h1 {
 }
 button {
     background: transparent;
-    color: #0f0;
-    border: 1px solid #0f0;
+    color: rgb(251, 255, 0);
+    border: 1px solid rgb(255, 238, 0);
     padding: 12px;
     font-size: 18px;
     cursor: pointer;
