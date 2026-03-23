@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>BOOM - Práctica 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="marco-principal">
+        <h1>B O O M</h1>
+        <div class="pantalla-info">
+            <div class="slots-clave">
+                <div id="s0">*</div>
+                <div id="s1">*</div>
+                <div id="s2">*</div>
+                <div id="s3">*</div>
+            </div>
+            <div id="displayCrono">0:00:00</div>
+            <p>Intentos restantes: <span id="intentos">7</span></p>
+            <p id="mensaje">Pulsa un número para comenzar</p>
+        </div>
+
+        <div class="teclado-numerico">
+            <button id="btn7" onclick="pulsar(7)">7</button>
+            <button id="btn8" onclick="pulsar(8)">8</button>
+            <button id="btn9" onclick="pulsar(9)">9</button>
+            <button id="btn4" onclick="pulsar(4)">4</button>
+            <button id="btn5" onclick="pulsar(5)">5</button>
+            <button id="btn6" onclick="pulsar(6)">6</button>
+            <button id="btn1" onclick="pulsar(1)">1</button>
+            <button id="btn2" onclick="pulsar(2)">2</button>
+            <button id="btn3" onclick="pulsar(3)">3</button>
+            <div class="vacio"></div>
+            <button id="btn0" onclick="pulsar(0)">0</button>
+            <div class="vacio"></div>
+        </div>
+
+        <div class="botones-control">
+            <button class="rojo" onclick="inicio()">Start</button>
+            <button class="blanco" onclick="parar()">Stop</button>
+            <button class="rojo" onclick="reset()">Reset</button>
+        </div>
+    </div>
+    <script src="crono.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
