@@ -56,7 +56,7 @@ images.explosion.onload = checkAllLoaded;
 images.explosion.onerror = checkAllLoaded;
 
 // RUTAS (Asegúrate de que los archivos se llamen EXACTAMENTE así en tu GitHub)
-images.player.src = 'spaceship-alien-galaxy-fleet-free-png.png'; 
+images.player.src = 'NAVE.png'; 
 images.alien.src = '—Pngtree—cat in alien spacecraft_18774502.png';
 images.explosion.src = 'realistic-fire-explosion-isolated.png';
 
