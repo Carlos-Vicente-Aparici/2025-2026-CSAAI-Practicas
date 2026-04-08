@@ -1,18 +1,11 @@
 /*jshint esversion: 6 */
 
-/**
- * INVASIÓN ALIENÍGENA - CANVA CENTAURI
- * Versión blindada para GitHub Pages y JSHint
- */
-
 var canvas = document.getElementById('gameCanvas');
 var ctx = canvas.getContext('2d');
 
-// Configuración del Canvas
 canvas.width = 900;
 canvas.height = 700;
 
-// --- ESTADO DEL JUEGO ---
 var Game = {
     score: 0,
     lives: 3,
@@ -25,7 +18,6 @@ var Game = {
     explosionFrames: 15
 };
 
-// --- RECURSOS ---
 var images = {
     player: new Image(),
     alien: new Image(),
@@ -38,7 +30,6 @@ var imagesLoaded = 0;
 function checkAllLoaded() {
     imagesLoaded++;
     if (imagesLoaded >= imagesToLoad) {
-        // SOLO empezamos el juego cuando todo está cargado
         if (Game.state === 'LOADING') {
             Game.state = 'PLAYING';
             initFleet();
@@ -47,7 +38,6 @@ function checkAllLoaded() {
     }
 }
 
-// Configurar carga (con seguridad ante errores)
 images.player.onload = checkAllLoaded;
 images.player.onerror = checkAllLoaded;
 images.alien.onload = checkAllLoaded;
@@ -55,12 +45,10 @@ images.alien.onerror = checkAllLoaded;
 images.explosion.onload = checkAllLoaded;
 images.explosion.onerror = checkAllLoaded;
 
-// RUTAS (Asegúrate de que los archivos se llamen EXACTAMENTE así en tu GitHub)
 images.player.src = 'NAVE.png'; 
 images.alien.src = '—Pngtree—cat in alien spacecraft_18774502.png';
 images.explosion.src = 'realistic-fire-explosion-isolated.png';
 
-// --- ENTIDADES ---
 var player = {
     x: 425,
     y: 630,
@@ -75,9 +63,8 @@ var aliens = [];
 var activeExplosions = [];
 var keys = {};
 
-// --- INICIALIZACIÓN ---
 function initFleet() {
-    aliens = []; // Limpiamos por si acaso
+    aliens = []; 
     for (var i = 0; i < 3; i++) {
         for (var j = 0; j < 8; j++) {
             aliens.push({
@@ -91,15 +78,12 @@ function initFleet() {
     }
 }
 
-// --- LÓGICA DE ACTUALIZACIÓN ---
 function update() {
     if (Game.state !== 'PLAYING') return;
 
-    // Movimiento Jugador
     if (keys.ArrowLeft && player.x > 10) player.x -= player.speed;
     if (keys.ArrowRight && player.x < canvas.width - player.w - 10) player.x += player.speed;
 
-    // Energía
     if (Game.energy < Game.maxEnergy) Game.energy += 0.02;
 
     var i, j, a, b, eb, ex;
@@ -113,7 +97,6 @@ function update() {
         return;
     }
 
-    // Movimiento Flota Sincronizado
     var speedFactor = 1 + (24 - aliveAliens.length) * 0.15;
     var moveX = Game.fleetDirection * Game.fleetSpeed * speedFactor;
     var hitWall = false;
@@ -133,7 +116,6 @@ function update() {
         }
     }
 
-    // Disparo Enemigo
     var now = Date.now();
     if (now - Game.lastEnemyShootTime > 1200) {
         var shooter = aliveAliens[Math.floor(Math.random() * aliveAliens.length)];
@@ -141,7 +123,6 @@ function update() {
         Game.lastEnemyShootTime = now;
     }
 
-    // Colisiones Balas Jugador (Bucle tradicional para evitar warnings)
     for (i = bullets.length - 1; i >= 0; i--) {
         b = bullets[i];
         b.y -= 7;
@@ -159,7 +140,6 @@ function update() {
         if (bullets[i] && bullets[i].y < 0) bullets.splice(i, 1);
     }
 
-    // Balas Enemigas
     for (i = enemyBullets.length - 1; i >= 0; i--) {
         eb = enemyBullets[i];
         eb.y += 5;
@@ -172,7 +152,6 @@ function update() {
         }
     }
 
-    // Explosiones
     for (i = activeExplosions.length - 1; i >= 0; i--) {
         ex = activeExplosions[i];
         ex.timer--;
@@ -180,7 +159,6 @@ function update() {
     }
 }
 
-// --- DIBUJADO ---
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -203,7 +181,6 @@ function draw() {
     ctx.fillStyle = Game.energy < 2 ? "red" : "cyan";
     ctx.fillRect(20, 55, Game.energy * 10, 10);
 
-    // Jugador (con respaldo visual)
     if (images.player.complete && images.player.naturalWidth !== 0) {
         ctx.drawImage(images.player, player.x, player.y, player.w, player.h);
     } else {
@@ -211,7 +188,6 @@ function draw() {
         ctx.fillRect(player.x, player.y, player.w, player.h);
     }
 
-    // Aliens
     for (var i = 0; i < aliens.length; i++) {
         var a = aliens[i];
         if (a.alive) {
@@ -251,7 +227,6 @@ function renderOverlay(text, color) {
     ctx.fillText(text, canvas.width/2, canvas.height/2);
 }
 
-// --- UTILIDADES ---
 window.addEventListener('keydown', function(e) {
     keys[e.code] = true;
     if (e.code === 'Space' && Game.state === 'PLAYING') {
@@ -286,7 +261,6 @@ function mainLoop() {
     }
 }
 
-// Timeout de seguridad: si las imágenes fallan, arranca a los 2 segundos
 setTimeout(function() {
     if (Game.state === 'LOADING') {
         Game.state = 'PLAYING';
