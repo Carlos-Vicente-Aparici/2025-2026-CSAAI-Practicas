@@ -51,7 +51,7 @@ images.explosion.onload = checkAllLoaded;
 images.explosion.onerror = checkAllLoaded;
 
 // Tus rutas de sistema
-images.player.src = '/home/alumnos/carlosv/CONSTRUCCION/2025-2026-CSAAI-Practicas/P3/P3/spaceship-alien-galaxy-fleet-free-png.png'; 
+images.player.src = 'spaceship-alien-galaxy-fleet-free-png.png'; 
 images.alien.src = '—Pngtree—cat in alien spacecraft_18774502.png';
 images.explosion.src = 'realistic-fire-explosion-isolated.png';
 
