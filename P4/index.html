@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beat The Word</title>
+    <link rel="stylesheet" href="style.css">
+    </head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Beat The Word</h2>
+            <div class="control-group">
+                <label>Secuencia:</label>
+                <select id="select-secuencia">
+                    <option value="cama-casa">Cama / Casa</option>
+                    <option value="pato-gato">Pato / Gato</option>
+                    <option value="cerdo-cero">Cerdo / Cero</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label>Nivel inicial:</label>
+                <select id="select-nivel">
+                    <option value="1">Nivel 1</option>
+                    <option value="2">Nivel 2</option>
+                    <option value="3">Nivel 3</option>
+                    <option value="4">Nivel 4</option>
+                    <option value="5">Nivel 5</option>
+                </select>
+            </div>
+            <button id="btn-musica">MÚSICA: <span id="musica-status">OFF</span></button>
+            <hr>
+            <button id="btn-inicio" class="primary">EMPEZAR PARTIDA</button>
+            <button id="btn-detener" disabled>DETENER</button>
+        </aside>
+
+        <main class="game-area">
+            <header class="stats">
+                <div class="stat-box">Nivel: <span id="display-nivel">1/5</span></div>
+                <div class="stat-box">Tiempo: <span id="display-tiempo">0.0s</span></div>
+                <div class="stat-box">Estado: <span id="display-estado">En espera</span></div>
+            </header>
+
+            <div id="palabra-principal" class="word-display">PULSA EMPEZAR</div>
+            <div class="grid" id="grid-juego"></div>
+        </main>
+    </div>
+
+    <audio id="audio-fondo" loop src="musica.mp3"></audio>
+    <audio id="audio-cuenta" src="cuenta.mp3"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
