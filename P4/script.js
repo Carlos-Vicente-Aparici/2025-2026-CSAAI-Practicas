@@ -4,7 +4,6 @@ const config = {
         "pato-gato": ["Pato", "Gato", "Pato", "Gato", "Pato", "Gato", "Pato", "Gato"],
         "cerdo-cero": ["Cerdo", "Cerdo", "Cero", "Cero", "Cerdo", "Cerdo", "Cero", "Cero"]
     },
-    // VELOCIDADES EXTREMAS
     velocidades: [450, 350, 250, 200, 150] 
 };
 
@@ -58,8 +57,9 @@ function ejecutarNivel() {
     displayEstado.innerText = "PREPÁRATE";
     displayPalabra.innerText = "1, 2, 3...";
     
-    // Solo suena la cuenta atrás si la música está en ON
+    // REGLA: Solo suena si está en ON
     if (estado.musicaOn) {
+        audioCuenta.currentTime = 0; // Reinicia para evitar solapamiento
         audioCuenta.play().catch(() => {});
     }
 
@@ -86,18 +86,18 @@ function ejecutarNivel() {
     }, 1800); 
 }
 
-// BOTÓN MÚSICA: INTERRUPTOR GENERAL DE SILENCIO
+// BOTÓN MÚSICA: Interruptor Maestro
 btnMusica.onclick = function() {
     estado.musicaOn = !estado.musicaOn;
     musicaStatus.innerText = estado.musicaOn ? "ON" : "OFF";
     
     if (estado.musicaOn) {
-        // Si activamos ON y el juego está corriendo, encendemos música de fondo
+        // Solo suena si el juego ya está corriendo
         if (btnInicio.disabled) { 
             audioFondo.play().catch(() => {});
         }
     } else {
-        // SI ES OFF, SILENCIO ABSOLUTO AL INSTANTE
+        // SILENCIO TOTAL INMEDIATO
         audioFondo.pause();
         audioFondo.currentTime = 0;
         audioCuenta.pause();
@@ -106,8 +106,12 @@ btnMusica.onclick = function() {
 };
 
 btnInicio.onclick = function() {
-    // Solo suena fondo si está en ON
-    if (estado.musicaOn) {
+    // LIMPIEZA PREVIA: Evita solapamientos si ya sonaba algo
+    audioFondo.pause();
+    audioFondo.currentTime = 0;
+    
+    // REGLA: Solo suena si está en ON
+    if (estado.musicaOn === true) {
         audioFondo.play().catch(() => {});
     }
     
@@ -115,6 +119,7 @@ btnInicio.onclick = function() {
     estado.tiempo = 0;
     toggleControls(true);
     
+    clearInterval(estado.timerGlobal); // Limpia timers previos
     estado.timerGlobal = setInterval(() => {
         estado.tiempo += 0.1;
         displayTiempo.innerText = estado.tiempo.toFixed(1) + 's';
