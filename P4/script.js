@@ -4,7 +4,8 @@ const config = {
         "pato-gato": ["Pato", "Gato", "Pato", "Gato", "Pato", "Gato", "Pato", "Gato"],
         "cerdo-cero": ["Cerdo", "Cerdo", "Cero", "Cero", "Cerdo", "Cerdo", "Cero", "Cero"]
     },
-    velocidades: [1000, 800, 600, 450, 300] 
+    // VELOCIDAD EXTREMA: de 500ms a 150ms
+    velocidades: [500, 400, 300, 200, 150] 
 };
 
 let estado = {
@@ -16,7 +17,6 @@ let estado = {
     musicaOn: false
 };
 
-// Referencias a los elementos
 const grid = document.getElementById('grid-juego');
 const btnInicio = document.getElementById('btn-inicio');
 const btnDetener = document.getElementById('btn-detener');
@@ -30,7 +30,6 @@ const audioFondo = document.getElementById('audio-fondo');
 const audioCuenta = document.getElementById('audio-cuenta');
 
 function renderGrid() {
-    if (!grid) return;
     grid.innerHTML = '';
     const seqKey = document.getElementById('select-secuencia').value;
     const items = config.secuencias[seqKey];
@@ -39,7 +38,7 @@ function renderGrid() {
         const card = document.createElement('div');
         card.className = 'card';
         card.id = `card-${i}`;
-        // BUSCA LOS ARCHIVOS DIRECTAMENTE (EJ: cama.png)
+        // Busca las imágenes directamente en tu carpeta
         card.innerHTML = `
             <img src="${label.toLowerCase()}.png" onerror="this.src='https://via.placeholder.com/80?text=${label}'">
             <div style="margin-top:5px; font-size:12px; font-weight: bold;">${label.toUpperCase()}</div>
@@ -49,16 +48,14 @@ function renderGrid() {
 }
 
 function ejecutarNivel() {
-    if (estado.nivelActual > 5) {
-        finalizarJuego();
-        return;
-    }
+    if (estado.nivelActual > 5) return finalizarJuego();
     
     estado.posicion = 0;
-    displayNivel.innerText = estado.nivelActual + "/5";
+    displayNivel.innerText = `${estado.nivelActual}/5`;
     displayEstado.innerText = "PREPÁRATE";
     displayPalabra.innerText = "1, 2, 3...";
     
+    // Suena la cuenta atrás solo si el archivo existe
     audioCuenta.play().catch(() => {});
 
     setTimeout(() => {
@@ -71,43 +68,32 @@ function ejecutarNivel() {
             document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
             
             if (estado.posicion < 8) {
-                const act = document.getElementById("card-" + estado.posicion);
+                const act = document.getElementById(`card-${estado.posicion}`);
                 if (act) act.classList.add('active');
                 displayPalabra.innerText = patron[estado.posicion].toUpperCase();
                 estado.posicion++;
             } else {
                 clearInterval(estado.intervalo);
                 estado.nivelActual++;
-                setTimeout(ejecutarNivel, 1200);
+                setTimeout(ejecutarNivel, 800); // Pausa corta entre niveles para mantener el ritmo
             }
         }, vel);
-    }, 2000);
+    }, 1500); // Tiempo de la cuenta atrás
 }
 
-function finalizarJuego() {
-    clearInterval(estado.intervalo);
-    clearInterval(estado.timerGlobal);
-    audioFondo.pause();
-    displayPalabra.innerText = "¡TERMINADO!";
-    toggleControls(false);
-}
-
-function toggleControls(disable) {
-    document.getElementById('select-secuencia').disabled = disable;
-    document.getElementById('select-nivel').disabled = disable;
-    btnInicio.disabled = disable;
-    btnDetener.disabled = !disable;
-}
-
-// EVENTOS DE LOS BOTONES
+// ARREGLO DEL BOTÓN MÚSICA
 btnMusica.onclick = function() {
     estado.musicaOn = !estado.musicaOn;
     musicaStatus.innerText = estado.musicaOn ? "ON" : "OFF";
-    console.log("Música cambiada a: " + estado.musicaOn);
+    
+    if (estado.musicaOn) {
+        audioFondo.play().catch(() => console.log("Falta musica.mp3"));
+    } else {
+        audioFondo.pause();
+    }
 };
 
 btnInicio.onclick = function() {
-    console.log("Iniciando partida...");
     if(estado.musicaOn) audioFondo.play().catch(() => {});
     
     estado.nivelActual = parseInt(document.getElementById('select-nivel').value);
@@ -123,10 +109,22 @@ btnInicio.onclick = function() {
 };
 
 btnDetener.onclick = function() {
-    location.reload(); // Forma más rápida de resetear todo si algo falla
+    location.reload(); 
 };
 
-document.getElementById('select-secuencia').onchange = renderGrid;
+function finalizarJuego() {
+    clearInterval(estado.intervalo);
+    clearInterval(estado.timerGlobal);
+    audioFondo.pause();
+    displayPalabra.innerText = "¡TERMINADO!";
+}
 
-// Arrancar la cuadrícula al cargar
+function toggleControls(disable) {
+    document.getElementById('select-secuencia').disabled = disable;
+    document.getElementById('select-nivel').disabled = disable;
+    btnInicio.disabled = disable;
+    btnDetener.disabled = !disable;
+}
+
+document.getElementById('select-secuencia').onchange = renderGrid;
 window.onload = renderGrid;
