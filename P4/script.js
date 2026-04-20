@@ -4,8 +4,7 @@ const config = {
         "pato-gato": ["Pato", "Gato", "Pato", "Gato", "Pato", "Gato", "Pato", "Gato"],
         "cerdo-cero": ["Cerdo", "Cerdo", "Cero", "Cero", "Cerdo", "Cerdo", "Cero", "Cero"]
     },
-    // VELOCIDADES EXTREMAS (en milisegundos)
-    // Nivel 1 es rápido, Nivel 5 es casi imposible
+    // VELOCIDADES EXTREMAS
     velocidades: [450, 350, 250, 200, 150] 
 };
 
@@ -15,10 +14,9 @@ let estado = {
     intervalo: null,
     tiempo: 0,
     timerGlobal: null,
-    musicaOn: false // Control de estado para el botón
+    musicaOn: false 
 };
 
-// Referencias a los elementos del HTML
 const grid = document.getElementById('grid-juego');
 const btnInicio = document.getElementById('btn-inicio');
 const btnDetener = document.getElementById('btn-detener');
@@ -31,7 +29,6 @@ const displayPalabra = document.getElementById('palabra-principal');
 const audioFondo = document.getElementById('audio-fondo');
 const audioCuenta = document.getElementById('audio-cuenta');
 
-// Función para dibujar los cuadros
 function renderGrid() {
     if (!grid) return;
     grid.innerHTML = '';
@@ -42,7 +39,6 @@ function renderGrid() {
         const card = document.createElement('div');
         card.className = 'card';
         card.id = `card-${i}`;
-        // Carga la imagen directamente de la carpeta raíz
         card.innerHTML = `
             <img src="${label.toLowerCase()}.png" onerror="this.src='https://via.placeholder.com/80?text=${label}'">
             <div style="margin-top:5px; font-size:12px; font-weight: bold;">${label.toUpperCase()}</div>
@@ -51,7 +47,6 @@ function renderGrid() {
     });
 }
 
-// Lógica de cada nivel
 function ejecutarNivel() {
     if (estado.nivelActual > 5) {
         finalizarJuego();
@@ -63,8 +58,10 @@ function ejecutarNivel() {
     displayEstado.innerText = "PREPÁRATE";
     displayPalabra.innerText = "1, 2, 3...";
     
-    // Suena "cuenta.mp3" solo si el archivo existe
-    audioCuenta.play().catch(() => {});
+    // Solo suena la cuenta atrás si la música está en ON
+    if (estado.musicaOn) {
+        audioCuenta.play().catch(() => {});
+    }
 
     setTimeout(() => {
         displayEstado.innerText = "¡DILO!";
@@ -73,7 +70,6 @@ function ejecutarNivel() {
         const vel = config.velocidades[estado.nivelActual - 1];
 
         estado.intervalo = setInterval(() => {
-            // Quitamos el brillo a todos
             document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
             
             if (estado.posicion < 8) {
@@ -82,44 +78,43 @@ function ejecutarNivel() {
                 displayPalabra.innerText = patron[estado.posicion].toUpperCase();
                 estado.posicion++;
             } else {
-                // Fin de la vuelta de 8 cuadros
                 clearInterval(estado.intervalo);
                 estado.nivelActual++;
-                // Pausa corta antes del siguiente nivel para no perder el ritmo
                 setTimeout(ejecutarNivel, 1000);
             }
         }, vel);
-    }, 1800); // Duración de la preparación
+    }, 1800); 
 }
 
-// BOTÓN MÚSICA: Solución al problema de ON/OFF
+// BOTÓN MÚSICA: INTERRUPTOR GENERAL DE SILENCIO
 btnMusica.onclick = function() {
     estado.musicaOn = !estado.musicaOn;
     musicaStatus.innerText = estado.musicaOn ? "ON" : "OFF";
     
     if (estado.musicaOn) {
-        audioFondo.play().catch(() => console.log("Audio esperando clic"));
+        // Si activamos ON y el juego está corriendo, encendemos música de fondo
+        if (btnInicio.disabled) { 
+            audioFondo.play().catch(() => {});
+        }
     } else {
-        // Pausa inmediata y reseteo
+        // SI ES OFF, SILENCIO ABSOLUTO AL INSTANTE
         audioFondo.pause();
         audioFondo.currentTime = 0;
+        audioCuenta.pause();
+        audioCuenta.currentTime = 0;
     }
 };
 
-// BOTÓN INICIO
 btnInicio.onclick = function() {
-    // Solo suena si el botón está en ON
+    // Solo suena fondo si está en ON
     if (estado.musicaOn) {
         audioFondo.play().catch(() => {});
-    } else {
-        audioFondo.pause();
     }
     
     estado.nivelActual = parseInt(document.getElementById('select-nivel').value);
     estado.tiempo = 0;
     toggleControls(true);
     
-    // Cronómetro de la partida
     estado.timerGlobal = setInterval(() => {
         estado.tiempo += 0.1;
         displayTiempo.innerText = estado.tiempo.toFixed(1) + 's';
@@ -128,7 +123,6 @@ btnInicio.onclick = function() {
     ejecutarNivel();
 };
 
-// BOTÓN DETENER: Recarga la página para limpiar todo rastro de audio y timers
 btnDetener.onclick = function() {
     location.reload();
 };
@@ -148,8 +142,5 @@ function toggleControls(disable) {
     btnDetener.disabled = !disable;
 }
 
-// Actualiza la cuadrícula si cambias la selección en el menú
 document.getElementById('select-secuencia').onchange = renderGrid;
-
-// Inicia la cuadrícula visual nada más cargar la página
 window.onload = renderGrid;
