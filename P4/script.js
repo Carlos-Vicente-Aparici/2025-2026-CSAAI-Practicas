@@ -16,22 +16,14 @@ let estado = {
     musicaOn: false 
 };
 
-const grid = document.getElementById('grid-juego');
-const btnInicio = document.getElementById('btn-inicio');
-const btnDetener = document.getElementById('btn-detener');
-const btnMusica = document.getElementById('btn-musica');
-const musicaStatus = document.getElementById('musica-status');
-const displayNivel = document.getElementById('display-nivel');
-const displayTiempo = document.getElementById('display-tiempo');
-const displayEstado = document.getElementById('display-estado');
-const displayPalabra = document.getElementById('palabra-principal');
-const audioFondo = document.getElementById('audio-fondo');
-const audioCuenta = document.getElementById('audio-cuenta');
+// Referencias seguras
+const getEl = (id) => document.getElementById(id);
 
 function renderGrid() {
+    const grid = getEl('grid-juego');
     if (!grid) return;
     grid.innerHTML = '';
-    const seqKey = document.getElementById('select-secuencia').value;
+    const seqKey = getEl('select-secuencia').value;
     const items = config.secuencias[seqKey];
     
     items.forEach((label, i) => {
@@ -46,26 +38,37 @@ function renderGrid() {
     });
 }
 
+function detenerTodoAudio() {
+    const audioFondo = getEl('audio-fondo');
+    const audioCuenta = getEl('audio-cuenta');
+    
+    audioFondo.pause();
+    audioFondo.currentTime = 0;
+    audioCuenta.pause();
+    audioCuenta.currentTime = 0;
+}
+
 function ejecutarNivel() {
     if (estado.nivelActual > 5) {
-        finalizarJuego();
+        detenerTodoAudio();
+        getEl('palabra-principal').innerText = "¡TERMINADO!";
+        toggleControls(false);
         return;
     }
     
     estado.posicion = 0;
-    displayNivel.innerText = estado.nivelActual + "/5";
-    displayEstado.innerText = "PREPÁRATE";
-    displayPalabra.innerText = "1, 2, 3...";
+    getEl('display-nivel').innerText = estado.nivelActual + "/5";
+    getEl('display-estado').innerText = "PREPÁRATE";
+    getEl('palabra-principal').innerText = "1, 2, 3...";
     
-    // REGLA: Solo suena si está en ON
     if (estado.musicaOn) {
-        audioCuenta.currentTime = 0; // Reinicia para evitar solapamiento
-        audioCuenta.play().catch(() => {});
+        getEl('audio-cuenta').currentTime = 0;
+        getEl('audio-cuenta').play().catch(() => {});
     }
 
     setTimeout(() => {
-        displayEstado.innerText = "¡DILO!";
-        const seqKey = document.getElementById('select-secuencia').value;
+        getEl('display-estado').innerText = "¡DILO!";
+        const seqKey = getEl('select-secuencia').value;
         const patron = config.secuencias[seqKey];
         const vel = config.velocidades[estado.nivelActual - 1];
 
@@ -73,9 +76,9 @@ function ejecutarNivel() {
             document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
             
             if (estado.posicion < 8) {
-                const act = document.getElementById("card-" + estado.posicion);
+                const act = getEl("card-" + estado.posicion);
                 if (act) act.classList.add('active');
-                displayPalabra.innerText = patron[estado.posicion].toUpperCase();
+                getEl('palabra-principal').innerText = patron[estado.posicion].toUpperCase();
                 estado.posicion++;
             } else {
                 clearInterval(estado.intervalo);
@@ -86,66 +89,54 @@ function ejecutarNivel() {
     }, 1800); 
 }
 
-// BOTÓN MÚSICA: Interruptor Maestro
-btnMusica.onclick = function() {
-    estado.musicaOn = !estado.musicaOn;
-    musicaStatus.innerText = estado.musicaOn ? "ON" : "OFF";
-    
-    if (estado.musicaOn) {
-        // Solo suena si el juego ya está corriendo
-        if (btnInicio.disabled) { 
-            audioFondo.play().catch(() => {});
-        }
-    } else {
-        // SILENCIO TOTAL INMEDIATO
-        audioFondo.pause();
-        audioFondo.currentTime = 0;
-        audioCuenta.pause();
-        audioCuenta.currentTime = 0;
-    }
-};
-
-btnInicio.onclick = function() {
-    // LIMPIEZA PREVIA: Evita solapamientos si ya sonaba algo
-    audioFondo.pause();
-    audioFondo.currentTime = 0;
-    
-    // REGLA: Solo suena si está en ON
-    if (estado.musicaOn === true) {
-        audioFondo.play().catch(() => {});
-    }
-    
-    estado.nivelActual = parseInt(document.getElementById('select-nivel').value);
-    estado.tiempo = 0;
-    toggleControls(true);
-    
-    clearInterval(estado.timerGlobal); // Limpia timers previos
-    estado.timerGlobal = setInterval(() => {
-        estado.tiempo += 0.1;
-        displayTiempo.innerText = estado.tiempo.toFixed(1) + 's';
-    }, 100);
-
-    ejecutarNivel();
-};
-
-btnDetener.onclick = function() {
-    location.reload();
-};
-
-function finalizarJuego() {
-    clearInterval(estado.intervalo);
-    clearInterval(estado.timerGlobal);
-    audioFondo.pause();
-    displayPalabra.innerText = "¡TERMINADO!";
-    displayEstado.innerText = "FIN";
-}
-
 function toggleControls(disable) {
-    document.getElementById('select-secuencia').disabled = disable;
-    document.getElementById('select-nivel').disabled = disable;
-    btnInicio.disabled = disable;
-    btnDetener.disabled = !disable;
+    getEl('select-secuencia').disabled = disable;
+    getEl('select-nivel').disabled = disable;
+    getEl('btn-inicio').disabled = disable;
+    getEl('btn-detener').disabled = !disable;
 }
 
-document.getElementById('select-secuencia').onchange = renderGrid;
-window.onload = renderGrid;
+// ASIGNACIÓN DE EVENTOS (MANERA ROBUSTA)
+window.addEventListener('DOMContentLoaded', () => {
+    renderGrid();
+
+    getEl('btn-musica').onclick = function() {
+        estado.musicaOn = !estado.musicaOn;
+        getEl('musica-status').innerText = estado.musicaOn ? "ON" : "OFF";
+        
+        if (estado.musicaOn) {
+            // Si el juego ya empezó, activamos la música de fondo
+            if (getEl('btn-inicio').disabled) {
+                getEl('audio-fondo').play().catch(() => {});
+            }
+        } else {
+            detenerTodoAudio();
+        }
+    };
+
+    getEl('btn-inicio').onclick = function() {
+        detenerTodoAudio();
+        
+        if (estado.musicaOn) {
+            getEl('audio-fondo').play().catch(() => {});
+        }
+        
+        estado.nivelActual = parseInt(getEl('select-nivel').value);
+        estado.tiempo = 0;
+        toggleControls(true);
+        
+        clearInterval(estado.timerGlobal);
+        estado.timerGlobal = setInterval(() => {
+            estado.tiempo += 0.1;
+            getEl('display-tiempo').innerText = estado.tiempo.toFixed(1) + 's';
+        }, 100);
+
+        ejecutarNivel();
+    };
+
+    getEl('btn-detener').onclick = function() {
+        location.reload();
+    };
+
+    getEl('select-secuencia').onchange = renderGrid;
+});
