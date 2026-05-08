@@ -1,0 +1,8 @@
+body { background: #111; color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+#game-wrap { text-align: center; }
+canvas { 
+    background: #1a4d2e; 
+    border: 10px solid #444; /* El muro físico visible */
+    display: block;
+}
+#controls { color: #888; margin-top: 15px; font-size: 14px; }
